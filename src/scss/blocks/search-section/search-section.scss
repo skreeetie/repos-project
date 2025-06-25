@@ -1,0 +1,10 @@
+@use '../../variables.scss';
+
+.search-section {
+  width: 700px;
+  min-height: 700px;
+  margin: 52px auto;
+  padding: 48px;
+  background-color: variables.$sec-color;
+  // border: 2px solid black;
+}
