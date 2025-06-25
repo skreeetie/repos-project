@@ -1,5 +1,11 @@
 .search-form {
+  width: 464px;
+  margin: 0 auto;
+
   &__input {
-    width: auto;
+    width: 440px;
+    height: 30px;
+    font-size: 32px;
+    padding: 12px;
   }
 }
