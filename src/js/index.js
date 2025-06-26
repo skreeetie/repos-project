@@ -49,6 +49,8 @@ async function setList() {
       for (let info of items) {
         const item = document.createElement('li');
         item.classList.add('search-form__item');
+        item.dataset.stars = info.stars;
+        item.dataset.owner = info.owner;
         item.textContent = info.name;
         list.append(item);
       }
@@ -56,6 +58,18 @@ async function setList() {
   }
 }
 
+function toList(event) {
+  console.log(event.target);
+}
+
 const setListDn = debounce(setList, 500);
 
 input.addEventListener('input', setListDn);
+list.addEventListener('click', evnt => {
+  toList(evnt);
+});
+
+const reposl = document.querySelector('.search-section__repos-list');
+reposl.addEventListener('click', evn => {
+  console.log(evn.target.closest('button'));
+});

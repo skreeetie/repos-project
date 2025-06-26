@@ -6,5 +6,31 @@
   margin: 52px auto;
   padding: 48px;
   background-color: variables.$sec-color;
-  // border: 2px solid black;
+
+  &__repos-list {
+    width: 464px;
+    margin: 48px auto;
+  }
+
+  &__item {
+    background-color: variables.$list-color;
+    border: 1px solid black;
+    font-size: 26px;
+    padding: 8px;
+    position: relative;
+  }
+
+  &__button {
+    position: absolute;
+    padding: 4px;
+    right: 28px;
+    top: 28px;
+    text-align: center;
+    background: none;
+    border: none;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
