@@ -2,6 +2,7 @@ import '../scss/style.scss';
 
 const input = document.querySelector('#search');
 const list = document.querySelector('.search-form__list');
+const reposlist = document.querySelector('.search-section__repos-list');
 
 async function getRepos(url) {
   const resp = await fetch(url);
@@ -59,7 +60,40 @@ async function setList() {
 }
 
 function toList(event) {
-  console.log(event.target);
+  const repo = document.createElement('li');
+  repo.classList.add('search-section__item');
+  const nameRepo = document.createElement('p');
+  nameRepo.textContent = `Name: ${event.target.textContent}`;
+  repo.append(nameRepo);
+  const ownerRepo = document.createElement('p');
+  ownerRepo.textContent = `Owner: ${event.target.dataset.owner}`;
+  repo.append(ownerRepo);
+  const starsRepo = document.createElement('p');
+  starsRepo.textContent = `Stars: ${event.target.dataset.stars}`;
+  repo.append(starsRepo);
+  const button = document.createElement('button');
+  button.classList.add('search-section__button');
+  const icon = document.createElement('img');
+  icon.src = './img/cross.svg';
+  icon.alt = 'Remove';
+  icon.width = '46';
+  icon.height = '42';
+  button.append(icon);
+  repo.append(button);
+  reposlist.append(repo);
+  if (document.querySelectorAll('.search-form__item').length !== 0) {
+    const values = document.querySelectorAll('.search-form__item');
+    for (let item of values) {
+      item.remove();
+    }
+  }
+  input.value = '';
+}
+
+function removeRepo(event) {
+  if (event.target.closest('button')) {
+    event.target.closest('li').remove();
+  }
 }
 
 const setListDn = debounce(setList, 500);
@@ -69,7 +103,6 @@ list.addEventListener('click', evnt => {
   toList(evnt);
 });
 
-const reposl = document.querySelector('.search-section__repos-list');
-reposl.addEventListener('click', evn => {
-  console.log(evn.target.closest('button'));
+reposlist.addEventListener('click', evnt => {
+  removeRepo(evnt);
 });
