@@ -8,20 +8,12 @@ async function getRepos(url) {
   const resp = await fetch(url);
   const data = await resp.json();
   const repos = [];
-  if (data.items.length >= 5) {
-    for (let i = 0; i < 5; i++) {
+  if (data.items.length > 0) {
+    for (let repo of data.items) {
       const obj = {};
-      obj.name = data.items[i].name;
-      obj.owner = data.items[i].owner.login;
-      obj.stars = data.items[i].stargazers_count;
-      repos.push(obj);
-    }
-  } else if (data.items.length > 0) {
-    for (let i = 0; i < data.items.length; i++) {
-      const obj = {};
-      obj.name = data.items[i].name;
-      obj.owner = data.items[i].owner.login;
-      obj.stars = data.items[i].stargazers_count;
+      obj.name = repo.name;
+      obj.owner = repo.owner.login;
+      obj.stars = repo.stargazers_count;
       repos.push(obj);
     }
   }
@@ -44,7 +36,7 @@ async function setList() {
     }
   }
   if (/[a-zA-Zа-яА-Я]/.test(input.value.trim())) {
-    const req = `https://api.github.com/search/repositories?q=${input.value}`;
+    const req = `https://api.github.com/search/repositories?q=${input.value}&per_page=5`;
     const items = await getRepos(req);
     if (items.length !== 0) {
       for (let info of items) {
